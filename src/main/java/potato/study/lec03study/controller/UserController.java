@@ -8,8 +8,8 @@ import potato.study.lec03study.service.UserService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 @RequiredArgsConstructor
-@RequestMapping("/user")
 public class UserController {
 
     private final UserService service;
