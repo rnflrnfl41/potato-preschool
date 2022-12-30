@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    private void readOne(@PathVariable Long id) {
-        service.readOne(id)
+    private User readOne(@PathVariable Long id) {
+        return service.readOne(id)
                 .orElse(null);
     }
 
