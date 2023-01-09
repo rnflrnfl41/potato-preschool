@@ -2,6 +2,7 @@ package potato.study.lec03study.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import potato.study.lec03study.entity.User;
 import potato.study.lec03study.service.UserService;
 
@@ -15,11 +16,11 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    private void create(@RequestBody UserDto requestUser){service.createUser(requestUser);}
+    private User create(@RequestBody UserDto requestUser){return service.createUser(requestUser);}
 
     @PutMapping("{id}")
     private void update(@PathVariable Long id, @RequestBody UserDto requestedUser) {
-        service.Update(id, requestedUser);
+        service.update(id, requestedUser);
     }
 
     @DeleteMapping("{id}")
@@ -36,6 +37,13 @@ public class UserController {
     @GetMapping
     private List<User> readAll() {
         return service.readAll();
+    }
+
+    @GetMapping("/join")
+    public ModelAndView join() throws Exception{
+        ModelAndView view = new ModelAndView();
+        view.setViewName("views/join");
+        return view;
     }
 
 

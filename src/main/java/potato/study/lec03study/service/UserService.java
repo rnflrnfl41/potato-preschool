@@ -15,30 +15,32 @@ public class UserService {
 
     private final UserRepository repository;
 
-    public void createUser(UserDto user) {
+    public User createUser(UserDto user) {
 
         if(repository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("500");
+            throw new IllegalArgumentException("Email is Exist...");
         }
 
         if(!user.getPasswd().equals(user.getPasswdConfirm())){
-            throw new IllegalArgumentException("500");
+            throw new IllegalArgumentException("Password is not same with Confirm Password");
         }
 
         User newUser = new User();
         newUser.setName(user.getName());
         newUser.setEmail(user.getEmail());
         newUser.setPasswd(user.getPasswd());
-        repository.save(newUser);
+        return repository.save(newUser);
 
     }
 
-    public void Update(Long id, UserDto user) {
+    public void update(Long id, UserDto user) {
         Optional<User> findUser = readOne(id);
 
         if(findUser.isPresent()) {
             User updatedUser = findUser.get();
             updatedUser.setName(user.getName());
+            updatedUser.setPasswd(user.getPasswd());
+            updatedUser.setEmail(user.getEmail());
             repository.save(updatedUser);
         }else {
             throw new IllegalArgumentException("500");
@@ -60,5 +62,10 @@ public class UserService {
     public List<User> readAll() {
         return repository.findAll();
     }
+
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
 
 }
