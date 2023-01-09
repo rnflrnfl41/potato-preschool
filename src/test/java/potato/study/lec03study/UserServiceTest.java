@@ -1,10 +1,11 @@
-package potato.study.lec03study.service;
+package potato.study.lec03study;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import potato.study.lec03study.controller.UserDto;
 import potato.study.lec03study.entity.User;
+import potato.study.lec03study.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
