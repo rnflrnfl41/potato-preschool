@@ -7,6 +7,8 @@ import potato.study.lec03study.entity.User;
 import potato.study.lec03study.repository.UserRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -15,21 +17,24 @@ public class UserService {
 
     private final UserRepository repository;
 
-    public User createUser(UserDto user) {
+    public int createUser(UserDto user) {
+
+        int result = 200;
 
         if(repository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email is Exist...");
+            result = 300;
         }
 
         if(!user.getPasswd().equals(user.getPasswdConfirm())){
-            throw new IllegalArgumentException("Password is not same with Confirm Password");
+            result = 400;
         }
 
         User newUser = new User();
         newUser.setName(user.getName());
         newUser.setEmail(user.getEmail());
         newUser.setPasswd(user.getPasswd());
-        return repository.save(newUser);
+        repository.save(newUser);
+        return result;
 
     }
 

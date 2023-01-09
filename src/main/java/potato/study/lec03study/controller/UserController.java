@@ -6,7 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 import potato.study.lec03study.entity.User;
 import potato.study.lec03study.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -16,7 +18,11 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    private User create(@RequestBody UserDto requestUser){return service.createUser(requestUser);}
+    public Map<String, Object> create(@RequestBody UserDto requestUser){
+        Map<String, Object> resultMap = new HashMap<>();
+        int result = service.createUser(requestUser);
+        resultMap.put("result",result);
+        return resultMap;}
 
     @PutMapping("{id}")
     private void update(@PathVariable Long id, @RequestBody UserDto requestedUser) {
